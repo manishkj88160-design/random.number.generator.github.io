@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RandomForge – Random Data Generator</title>
+    <meta name="description"
+        content="Generate random numbers, passwords, names, phone numbers, colors, GUIDs & more with RandomForge — your all-in-one random data generator." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <div class="logo-icon">⚡</div>
+            <span class="logo-text">RandomForge</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-group">
+                <div class="nav-group-label">Numbers</div>
+                <button class="nav-item active" data-section="random-int" onclick="switchSection('random-int', this)">
+                    <span class="nav-icon">🎲</span> Random Integer
+                </button>
+                <button class="nav-item" data-section="sequence" onclick="switchSection('sequence', this)">
+                    <span class="nav-icon">🔢</span> Number Sequence
+                </button>
+                <button class="nav-item" data-section="dice" onclick="switchSection('dice', this)">
+                    <span class="nav-icon">🎯</span> Dice Roller
+                </button>
+                <button class="nav-item" data-section="roman" onclick="switchSection('roman', this)">
+                    <span class="nav-icon">🏛️</span> Roman Numerals
+                </button>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-label">Text & Content</div>
+                <button class="nav-item" data-section="lorem" onclick="switchSection('lorem', this)">
+                    <span class="nav-icon">📝</span> Lorem Ipsum
+                </button>
+                <button class="nav-item" data-section="words" onclick="switchSection('words', this)">
+                    <span class="nav-icon">💬</span> Word Generator
+                </button>
+                <button class="nav-item" data-section="num-to-words" onclick="switchSection('num-to-words', this)">
+                    <span class="nav-icon">🔤</span> Numbers to Words
+                </button>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-label">Security</div>
+                <button class="nav-item" data-section="password" onclick="switchSection('password', this)">
+                    <span class="nav-icon">🔐</span> Password Generator
+                </button>
+                <button class="nav-item" data-section="hash" onclick="switchSection('hash', this)">
+                    <span class="nav-icon">🔒</span> Hash Generator
+                </button>
+                <button class="nav-item" data-section="guid" onclick="switchSection('guid', this)">
+                    <span class="nav-icon">🆔</span> GUID Generator
+                </button>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-label">Identity & Finance</div>
+                <button class="nav-item" data-section="names" onclick="switchSection('names', this)">
+                    <span class="nav-icon">👤</span> Name Generator
+                </button>
+                <button class="nav-item" data-section="phone" onclick="switchSection('phone', this)">
+                    <span class="nav-icon">📱</span> Phone Number
+                </button>
+                <button class="nav-item" data-section="email" onclick="switchSection('email', this)">
+                    <span class="nav-icon">📧</span> Email Generator
+                </button>
+                <button class="nav-item" data-section="address" onclick="switchSection('address', this)">
+                    <span class="nav-icon">🏠</span> Address Generator
+                </button>
+                <button class="nav-item" data-section="creditcard" onclick="switchSection('creditcard', this)">
+                    <span class="nav-icon">💳</span> Credit Card
+                </button>
+                <button class="nav-item" data-section="iban" onclick="switchSection('iban', this)">
+                    <span class="nav-icon">🏦</span> IBAN Generator
+                </button>
+                <button class="nav-item" data-section="mac" onclick="switchSection('mac', this)">
+                    <span class="nav-icon">🌐</span> MAC Address
+                </button>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-label">Colors & Misc</div>
+                <button class="nav-item" data-section="color" onclick="switchSection('color', this)">
+                    <span class="nav-icon">🎨</span> Color Generator
+                </button>
+                <button class="nav-item" data-section="date" onclick="switchSection('date', this)">
+                    <span class="nav-icon">📅</span> Date & Time
+                </button>
+                <button class="nav-item" data-section="username" onclick="switchSection('username', this)">
+                    <span class="nav-icon">🧑‍💻</span> Username
+                </button>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-label">Entertainment</div>
+                <button class="nav-item" data-section="countries" onclick="switchSection('countries', this)">
+                    <span class="nav-icon">🌍</span> Countries
+                </button>
+                <button class="nav-item" data-section="animals" onclick="switchSection('animals', this)">
+                    <span class="nav-icon">🦁</span> Animals
+                </button>
+                <button class="nav-item" data-section="truth-dare" onclick="switchSection('truth-dare', this)">
+                    <span class="nav-icon">🎮</span> Truth or Dare
+                </button>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+
+        <!-- Topbar -->
+        <header class="topbar">
+            <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()">
+                <span></span><span></span><span></span>
+            </button>
+            <div class="topbar-title" id="topbarTitle">🎲 Random Integer Generator</div>
+            <div class="topbar-actions">
+                <div class="sparkle" id="sparkleIndicator">✨ Results Ready</div>
+            </div>
+        </header>
+
+        <!-- ===== SECTIONS ===== -->
+
+        <!-- 1. Random Integer -->
+        <section class="section active" id="section-random-int">
+            <div class="section-header">
+                <h1>Random Integer Generator</h1>
+                <p>Generate one or multiple random integers within a custom range instantly.</p>
+            </div>
+            <div class="card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="int-min">Minimum Value</label>
+                        <input type="number" id="int-min" value="1" />
+                    </div>
+                    <div class="form-group">
+                        <label for="int-max">Maximum Value</label>
+                        <input type="number" id="int-max" value="100" />
+                    </div>
+                    <div class="form-group">
+                        <label for="int-count">How Many?</label>
+                        <input type="number" id="int-count" value="5" min="1" max="1000" />
+                    </div>
+                    <div class="form-group">
+                        <label for="int-unique">Unique Numbers</label>
+                        <select id="int-unique">
+                            <option value="false">Allow duplicates</option>
+                            <option value="true">No duplicates</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateIntegers()">Generate Numbers</button>
+            </div>
+            <div class="result-card" id="result-random-int">
+                <div class="result-placeholder">👆 Configure options and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 2. Number Sequence -->
+        <section class="section" id="section-sequence">
+            <div class="section-header">
+                <h1>Number Sequence Generator</h1>
+                <p>Generate a shuffled or ordered sequence of numbers from X to Y.</p>
+            </div>
+            <div class="card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="seq-from">From</label>
+                        <input type="number" id="seq-from" value="1" />
+                    </div>
+                    <div class="form-group">
+                        <label for="seq-to">To</label>
+                        <input type="number" id="seq-to" value="20" />
+                    </div>
+                    <div class="form-group">
+                        <label for="seq-step">Step</label>
+                        <input type="number" id="seq-step" value="1" min="1" />
+                    </div>
+                    <div class="form-group">
+                        <label for="seq-shuffle">Order</label>
+                        <select id="seq-shuffle">
+                            <option value="false">Sequential</option>
+                            <option value="true">Shuffled</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateSequence()">Generate Sequence</button>
+            </div>
+            <div class="result-card" id="result-sequence">
+                <div class="result-placeholder">👆 Configure options and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 3. Dice Roller -->
+        <section class="section" id="section-dice">
+            <div class="section-header">
+                <h1>Dice Roller</h1>
+                <p>Roll any type of dice — D4, D6, D8, D10, D12, D20, or custom.</p>
+            </div>
+            <div class="card">
+                <div class="dice-types">
+                    <button class="dice-btn active-dice" id="dice-d6" onclick="selectDice(6, this)">D6</button>
+                    <button class="dice-btn" id="dice-d4" onclick="selectDice(4, this)">D4</button>
+                    <button class="dice-btn" id="dice-d8" onclick="selectDice(8, this)">D8</button>
+                    <button class="dice-btn" id="dice-d10" onclick="selectDice(10, this)">D10</button>
+                    <button class="dice-btn" id="dice-d12" onclick="selectDice(12, this)">D12</button>
+                    <button class="dice-btn" id="dice-d20" onclick="selectDice(20, this)">D20</button>
+                    <button class="dice-btn" id="dice-d100" onclick="selectDice(100, this)">D100</button>
+                </div>
+                <div class="form-group" style="margin-top:1.5rem">
+                    <label for="dice-count">Number of Dice</label>
+                    <input type="number" id="dice-count" value="1" min="1" max="20" />
+                </div>
+                <button class="btn-primary" onclick="rollDice()">🎲 Roll Dice</button>
+            </div>
+            <div class="result-card" id="result-dice">
+                <div class="result-placeholder">👆 Select dice and roll!</div>
+            </div>
+        </section>
+
+        <!-- 4. Roman Numerals -->
+        <section class="section" id="section-roman">
+            <div class="section-header">
+                <h1>Roman Numeral Converter</h1>
+                <p>Convert between Arabic numbers and Roman numerals instantly.</p>
+            </div>
+            <div class="card">
+                <div class="tab-row">
+                    <button class="tab-btn active-tab" id="roman-tab-to" onclick="switchRomanTab('to-roman')">Number →
+                        Roman</button>
+                    <button class="tab-btn" id="roman-tab-from" onclick="switchRomanTab('from-roman')">Roman →
+                        Number</button>
+                </div>
+                <div id="roman-to-roman">
+                    <div class="form-group">
+                        <label for="roman-input-num">Enter a number (1–3999)</label>
+                        <input type="number" id="roman-input-num" value="2024" min="1" max="3999" />
+                    </div>
+                </div>
+                <div id="roman-from-roman" style="display:none">
+                    <div class="form-group">
+                        <label for="roman-input-str">Enter Roman numeral (e.g. MMXXIV)</label>
+                        <input type="text" id="roman-input-str" value="MMXXIV" style="text-transform:uppercase" />
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="convertRoman()">Convert</button>
+            </div>
+            <div class="result-card" id="result-roman">
+                <div class="result-placeholder">👆 Enter a value and click Convert</div>
+            </div>
+        </section>
+
+        <!-- 5. Lorem Ipsum -->
+        <section class="section" id="section-lorem">
+            <div class="section-header">
+                <h1>Lorem Ipsum Generator</h1>
+                <p>Generate placeholder text in paragraphs or sentences.</p>
+            </div>
+            <div class="card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="lorem-type">Generate</label>
+                        <select id="lorem-type">
+                            <option value="paragraphs">Paragraphs</option>
+                            <option value="sentences">Sentences</option>
+                            <option value="words">Words</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="lorem-count">How Many?</label>
+                        <input type="number" id="lorem-count" value="3" min="1" max="50" />
+                    </div>
+                    <div class="form-group">
+                        <label for="lorem-start">Start With</label>
+                        <select id="lorem-start">
+                            <option value="true">Lorem ipsum...</option>
+                            <option value="false">Random start</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateLorem()">Generate Text</button>
+            </div>
+            <div class="result-card" id="result-lorem">
+                <div class="result-placeholder">👆 Set options and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 6. Word Generator -->
+        <section class="section" id="section-words">
+            <div class="section-header">
+                <h1>Word Generator</h1>
+                <p>Generate random words by category or length.</p>
+            </div>
+            <div class="card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="word-count">Number of Words</label>
+                        <input type="number" id="word-count" value="10" min="1" max="100" />
+                    </div>
+                    <div class="form-group">
+                        <label for="word-category">Category</label>
+                        <select id="word-category">
+                            <option value="nouns">Nouns</option>
+                            <option value="adjectives">Adjectives</option>
+                            <option value="verbs">Verbs</option>
+                            <option value="mixed">Mixed</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateWords()">Generate Words</button>
+            </div>
+            <div class="result-card" id="result-words">
+                <div class="result-placeholder">👆 Choose category and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 7. Numbers to Words -->
+        <section class="section" id="section-num-to-words">
+            <div class="section-header">
+                <h1>Numbers to Words Converter</h1>
+                <p>Convert any number into its written English equivalent.</p>
+            </div>
+            <div class="card">
+                <div class="form-group">
+                    <label for="ntw-input">Enter a Number</label>
+                    <input type="number" id="ntw-input" value="123456789" />
+                </div>
+                <button class="btn-primary" onclick="convertNumberToWords()">Convert to Words</button>
+            </div>
+            <div class="result-card" id="result-num-to-words">
+                <div class="result-placeholder">👆 Enter a number and click Convert</div>
+            </div>
+        </section>
+
+        <!-- 8. Password Generator -->
+        <section class="section" id="section-password">
+            <div class="section-header">
+                <h1>Strong Password Generator</h1>
+                <p>Create cryptographically secure passwords with custom rules.</p>
+            </div>
+            <div class="card">
+                <div class="form-group">
+                    <label for="pwd-length">Password Length: <span id="pwd-length-val">16</span></label>
+                    <input type="range" id="pwd-length" min="4" max="128" value="16"
+                        oninput="document.getElementById('pwd-length-val').textContent=this.value" />
+                </div>
+                <div class="checkbox-group">
+                    <label class="checkbox-label"><input type="checkbox" id="pwd-upper" checked /> Uppercase
+                        (A-Z)</label>
+                    <label class="checkbox-label"><input type="checkbox" id="pwd-lower" checked /> Lowercase
+                        (a-z)</label>
+                    <label class="checkbox-label"><input type="checkbox" id="pwd-numbers" checked /> Numbers
+                        (0-9)</label>
+                    <label class="checkbox-label"><input type="checkbox" id="pwd-symbols" checked /> Symbols
+                        (!@#$...)</label>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="pwd-count">Number of Passwords</label>
+                        <input type="number" id="pwd-count" value="5" min="1" max="50" />
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd-exclude">Exclude Ambiguous</label>
+                        <select id="pwd-exclude">
+                            <option value="false">Include all</option>
+                            <option value="true">Exclude (0,O,l,1)</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generatePasswords()">Generate Passwords</button>
+            </div>
+            <div class="result-card" id="result-password">
+                <div class="result-placeholder">👆 Set options and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 9. Hash Generator -->
+        <section class="section" id="section-hash">
+            <div class="section-header">
+                <h1>Hash Generator</h1>
+                <p>Generate SHA-256, MD5-style, and other cryptographic hashes.</p>
+            </div>
+            <div class="card">
+                <div class="form-group">
+                    <label for="hash-input">Input Text</label>
+                    <textarea id="hash-input" rows="4" placeholder="Enter text to hash..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="hash-type">Hash Algorithm</label>
+                    <select id="hash-type">
+                        <option value="sha256">SHA-256</option>
+                        <option value="sha1">SHA-1</option>
+                        <option value="sha512">SHA-512</option>
+                        <option value="sha384">SHA-384</option>
+                        <option value="md5sim">MD5 (simulated)</option>
+                    </select>
+                </div>
+                <button class="btn-primary" onclick="generateHash()">Generate Hash</button>
+            </div>
+            <div class="result-card" id="result-hash">
+                <div class="result-placeholder">👆 Enter text and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 10. GUID Generator -->
+        <section class="section" id="section-guid">
+            <div class="section-header">
+                <h1>GUID / UUID Generator</h1>
+                <p>Generate RFC 4122 compliant UUIDs (version 4).</p>
+            </div>
+            <div class="card">
+                <div class="form-group">
+                    <label for="guid-count">How Many GUIDs?</label>
+                    <input type="number" id="guid-count" value="5" min="1" max="100" />
+                </div>
+                <div class="form-group">
+                    <label for="guid-format">Format</label>
+                    <select id="guid-format">
+                        <option value="standard">Standard (with dashes)</option>
+                        <option value="no-dashes">No dashes</option>
+                        <option value="braces">With braces {}</option>
+                        <option value="uppercase">UPPERCASE</option>
+                    </select>
+                </div>
+                <button class="btn-primary" onclick="generateGUIDs()">Generate GUIDs</button>
+            </div>
+            <div class="result-card" id="result-guid">
+                <div class="result-placeholder">👆 Set count and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 11. Name Generator -->
+        <section class="section" id="section-names">
+            <div class="section-header">
+                <h1>Random Name Generator</h1>
+                <p>Generate realistic first/last names from various cultures.</p>
+            </div>
+            <div class="card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name-count">How Many Names?</label>
+                        <input type="number" id="name-count" value="10" min="1" max="200" />
+                    </div>
+                    <div class="form-group">
+                        <label for="name-gender">Gender</label>
+                        <select id="name-gender">
+                            <option value="any">Any</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name-type">Name Type</label>
+                        <select id="name-type">
+                            <option value="full">Full Name</option>
+                            <option value="first">First Only</option>
+                            <option value="last">Last Only</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="name-origin">Origin</label>
+                        <select id="name-origin">
+                            <option value="english">English</option>
+                            <option value="spanish">Spanish</option>
+                            <option value="french">French</option>
+                            <option value="german">German</option>
+                            <option value="japanese">Japanese</option>
+                            <option value="arabic">Arabic</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateNames()">Generate Names</button>
+            </div>
+            <div class="result-card" id="result-names">
+                <div class="result-placeholder">👆 Set options and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 12. Phone Number -->
+        <section class="section" id="section-phone">
+            <div class="section-header">
+                <h1>Phone Number Generator</h1>
+                <p>Generate formatted phone numbers for different countries.</p>
+            </div>
+            <div class="card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="phone-country">Country</label>
+                        <select id="phone-country">
+                            <option value="US">🇺🇸 United States (+1)</option>
+                            <option value="UK">🇬🇧 United Kingdom (+44)</option>
+                            <option value="DE">🇩🇪 Germany (+49)</option>
+                            <option value="FR">🇫🇷 France (+33)</option>
+                            <option value="IN">🇮🇳 India (+91)</option>
+                            <option value="RO">🇷🇴 Romania (+40)</option>
+                            <option value="ES">🇪🇸 Spain (+34)</option>
+                            <option value="CN">🇨🇳 China (+86)</option>
+                            <option value="JP">🇯🇵 Japan (+81)</option>
+                            <option value="AU">🇦🇺 Australia (+61)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone-count">How Many?</label>
+                        <input type="number" id="phone-count" value="5" min="1" max="100" />
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generatePhones()">Generate Phone Numbers</button>
+            </div>
+            <div class="result-card" id="result-phone">
+                <div class="result-placeholder">👆 Select country and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 13. Email Generator -->
+        <section class="section" id="section-email">
+            <div class="section-header">
+                <h1>Random Email Generator</h1>
+                <p>Generate realistic-looking random email addresses.</p>
+            </div>
+            <div class="card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="email-count">How Many?</label>
+                        <input type="number" id="email-count" value="8" min="1" max="100" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email-domain">Domain</label>
+                        <select id="email-domain">
+                            <option value="random">Random</option>
+                            <option value="gmail.com">gmail.com</option>
+                            <option value="yahoo.com">yahoo.com</option>
+                            <option value="outlook.com">outlook.com</option>
+                            <option value="protonmail.com">protonmail.com</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateEmails()">Generate Emails</button>
+            </div>
+            <div class="result-card" id="result-email">
+                <div class="result-placeholder">👆 Set options and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 14. Address Generator -->
+        <section class="section" id="section-address">
+            <div class="section-header">
+                <h1>Random Address Generator</h1>
+                <p>Generate complete fictional addresses for testing and forms.</p>
+            </div>
+            <div class="card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="addr-count">How Many Addresses?</label>
+                        <input type="number" id="addr-count" value="3" min="1" max="50" />
+                    </div>
+                    <div class="form-group">
+                        <label for="addr-country">Country</label>
+                        <select id="addr-country">
+                            <option value="US">United States</option>
+                            <option value="UK">United Kingdom</option>
+                            <option value="CA">Canada</option>
+                            <option value="AU">Australia</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateAddresses()">Generate Addresses</button>
+            </div>
+            <div class="result-card" id="result-address">
+                <div class="result-placeholder">👆 Select country and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 15. Credit Card -->
+        <section class="section" id="section-creditcard">
+            <div class="section-header">
+                <h1>Credit Card Number Generator</h1>
+                <p>Generate test credit card numbers with valid Luhn checksums. <strong>For testing only — not real
+                        cards.</strong></p>
+            </div>
+            <div class="card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="cc-type">Card Type</label>
+                        <select id="cc-type">
+                            <option value="visa">Visa</option>
+                            <option value="mastercard">Mastercard</option>
+                            <option value="amex">American Express</option>
+                            <option value="discover">Discover</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cc-count">How Many?</label>
+                        <input type="number" id="cc-count" value="3" min="1" max="20" />
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateCreditCards()">Generate Card Numbers</button>
+            </div>
+            <div class="result-card" id="result-creditcard">
+                <div class="result-placeholder">👆 Select card type and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 16. IBAN Generator -->
+        <section class="section" id="section-iban">
+            <div class="section-header">
+                <h1>IBAN Generator</h1>
+                <p>Generate valid formatted IBAN numbers for European countries.</p>
+            </div>
+            <div class="card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="iban-country">Country</label>
+                        <select id="iban-country">
+                            <option value="DE">Germany (DE)</option>
+                            <option value="GB">United Kingdom (GB)</option>
+                            <option value="FR">France (FR)</option>
+                            <option value="ES">Spain (ES)</option>
+                            <option value="IT">Italy (IT)</option>
+                            <option value="NL">Netherlands (NL)</option>
+                            <option value="PL">Poland (PL)</option>
+                            <option value="RO">Romania (RO)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="iban-count">How Many?</label>
+                        <input type="number" id="iban-count" value="5" min="1" max="50" />
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateIBANs()">Generate IBANs</button>
+            </div>
+            <div class="result-card" id="result-iban">
+                <div class="result-placeholder">👆 Select country and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 17. MAC Address -->
+        <section class="section" id="section-mac">
+            <div class="section-header">
+                <h1>MAC Address Generator</h1>
+                <p>Generate random hardware MAC addresses in various formats.</p>
+            </div>
+            <div class="card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="mac-count">How Many?</label>
+                        <input type="number" id="mac-count" value="5" min="1" max="100" />
+                    </div>
+                    <div class="form-group">
+                        <label for="mac-separator">Separator</label>
+                        <select id="mac-separator">
+                            <option value=":">Colon (AA:BB:CC)</option>
+                            <option value="-">Hyphen (AA-BB-CC)</option>
+                            <option value=".">Dot (AABB.CCDD)</option>
+                            <option value="">None (AABBCC)</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateMACs()">Generate MAC Addresses</button>
+            </div>
+            <div class="result-card" id="result-mac">
+                <div class="result-placeholder">👆 Set options and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 18. Color Generator -->
+        <section class="section" id="section-color">
+            <div class="section-header">
+                <h1>Random Color Generator</h1>
+                <p>Generate beautiful random colors in HEX, RGB, and HSL formats.</p>
+            </div>
+            <div class="card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="color-count">How Many Colors?</label>
+                        <input type="number" id="color-count" value="8" min="1" max="50" />
+                    </div>
+                    <div class="form-group">
+                        <label for="color-format">Output Format</label>
+                        <select id="color-format">
+                            <option value="hex">HEX (#RRGGBB)</option>
+                            <option value="rgb">RGB</option>
+                            <option value="hsl">HSL</option>
+                            <option value="all">All Formats</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="color-type">Color Type</label>
+                        <select id="color-type">
+                            <option value="any">Any Color</option>
+                            <option value="light">Light Colors</option>
+                            <option value="dark">Dark Colors</option>
+                            <option value="vivid">Vivid/Saturated</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateColors()">Generate Colors</button>
+            </div>
+            <div class="result-card" id="result-color">
+                <div class="result-placeholder">👆 Set options and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 19. Date & Time -->
+        <section class="section" id="section-date">
+            <div class="section-header">
+                <h1>Date &amp; Time Generator</h1>
+                <p>Generate random dates, weekdays, Unix timestamps, and more.</p>
+            </div>
+            <div class="card">
+                <div class="tab-row">
+                    <button class="tab-btn active-tab" id="date-tab-random" onclick="switchDateTab('random')">Random
+                        Dates</button>
+                    <button class="tab-btn" id="date-tab-unix" onclick="switchDateTab('unix')">Unix Timestamp</button>
+                    <button class="tab-btn" id="date-tab-weekday" onclick="switchDateTab('weekday')">Random
+                        Weekday</button>
+                </div>
+                <div id="date-panel-random">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="date-from">From Date</label>
+                            <input type="date" id="date-from" value="2000-01-01" />
+                        </div>
+                        <div class="form-group">
+                            <label for="date-to">To Date</label>
+                            <input type="date" id="date-to" />
+                        </div>
+                        <div class="form-group">
+                            <label for="date-count">How Many?</label>
+                            <input type="number" id="date-count" value="5" min="1" max="100" />
+                        </div>
+                        <div class="form-group">
+                            <label for="date-format">Format</label>
+                            <select id="date-format">
+                                <option value="iso">ISO (YYYY-MM-DD)</option>
+                                <option value="us">US (MM/DD/YYYY)</option>
+                                <option value="eu">EU (DD/MM/YYYY)</option>
+                                <option value="long">Long (Month DD, YYYY)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="date-panel-unix" style="display:none">
+                    <div class="form-group">
+                        <label for="unix-input">Unix Timestamp (leave blank to get current)</label>
+                        <input type="number" id="unix-input" placeholder="e.g. 1708501200" />
+                    </div>
+                </div>
+                <div id="date-panel-weekday" style="display:none">
+                    <div class="form-group">
+                        <label for="weekday-count">How Many Weekdays?</label>
+                        <input type="number" id="weekday-count" value="5" min="1" max="50" />
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateDates()">Generate</button>
+            </div>
+            <div class="result-card" id="result-date">
+                <div class="result-placeholder">👆 Set options and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 20. Username Generator -->
+        <section class="section" id="section-username">
+            <div class="section-header">
+                <h1>Username Generator</h1>
+                <p>Create creative, unique usernames for profiles and accounts.</p>
+            </div>
+            <div class="card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="uname-count">How Many?</label>
+                        <input type="number" id="uname-count" value="10" min="1" max="100" />
+                    </div>
+                    <div class="form-group">
+                        <label for="uname-style">Style</label>
+                        <select id="uname-style">
+                            <option value="gaming">Gaming (CoolDragon42)</option>
+                            <option value="professional">Professional (john.smith)</option>
+                            <option value="random">Random Combo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="uname-numbers">Add Numbers</label>
+                        <select id="uname-numbers">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateUsernames()">Generate Usernames</button>
+            </div>
+            <div class="result-card" id="result-username">
+                <div class="result-placeholder">👆 Set style and click Generate</div>
+            </div>
+        </section>
+
+        <!-- 21. Countries -->
+        <section class="section" id="section-countries">
+            <div class="section-header">
+                <h1>Random Countries Generator</h1>
+                <p>Pick random countries and cities from around the world.</p>
+            </div>
+            <div class="card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="country-count">How Many Countries?</label>
+                        <input type="number" id="country-count" value="5" min="1" max="50" />
+                    </div>
+                    <div class="form-group">
+                        <label for="country-with-city">Include Capital?</label>
+                        <select id="country-with-city">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateCountries()">Generate Countries</button>
+            </div>
+            <div class="result-card" id="result-countries">
+                <div class="result-placeholder">👆 Click Generate</div>
+            </div>
+        </section>
+
+        <!-- 22. Animals -->
+        <section class="section" id="section-animals">
+            <div class="section-header">
+                <h1>Random Animal Generator</h1>
+                <p>Discover random animals from all categories.</p>
+            </div>
+            <div class="card">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="animal-count">How Many?</label>
+                        <input type="number" id="animal-count" value="8" min="1" max="50" />
+                    </div>
+                    <div class="form-group">
+                        <label for="animal-category">Category</label>
+                        <select id="animal-category">
+                            <option value="all">All Animals</option>
+                            <option value="mammals">Mammals</option>
+                            <option value="birds">Birds</option>
+                            <option value="reptiles">Reptiles</option>
+                            <option value="marine">Marine</option>
+                            <option value="insects">Insects</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="generateAnimals()">Generate Animals</button>
+            </div>
+            <div class="result-card" id="result-animals">
+                <div class="result-placeholder">👆 Click Generate</div>
+            </div>
+        </section>
+
+        <!-- 23. Truth or Dare -->
+        <section class="section" id="section-truth-dare">
+            <div class="section-header">
+                <h1>Truth or Dare Generator</h1>
+                <p>Get random truth questions and dare challenges for your game night.</p>
+            </div>
+            <div class="card">
+                <div class="tab-row">
+                    <button class="tab-btn active-tab" id="td-tab-truth" onclick="switchTDTab('truth')">Truth</button>
+                    <button class="tab-btn" id="td-tab-dare" onclick="switchTDTab('dare')">Dare</button>
+                    <button class="tab-btn" id="td-tab-both" onclick="switchTDTab('both')">Both</button>
+                </div>
+                <div class="form-group" style="margin-top:1rem">
+                    <label for="td-count">How Many?</label>
+                    <input type="number" id="td-count" value="5" min="1" max="20" />
+                </div>
+                <button class="btn-primary" onclick="generateTruthDare()">Generate</button>
+            </div>
+            <div class="result-card" id="result-truth-dare">
+                <div class="result-placeholder">👆 Select type and click Generate</div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
